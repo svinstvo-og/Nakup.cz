@@ -30,9 +30,16 @@ public class ProductService {
 
     public void getAllProducts() {
         List<Product> products = productRepository.findAll();
+        log.info("Found {} products", products.size());
     }
 
     public void getProductById(Long id) {
-        Optional<Product> product = productRepository.findById(id);
+        try {
+            Optional<Product> product = productRepository.findById(id);
+            log.info("Found product: {}", product.toString());
+        }
+        catch (Exception e) {
+            log.error("Could not find product with id: {}", id);
+        }
     }
 }
