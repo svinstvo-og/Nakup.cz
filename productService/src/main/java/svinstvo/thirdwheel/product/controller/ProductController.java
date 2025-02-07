@@ -28,7 +28,6 @@ public class ProductController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createProduct(@RequestBody ProductRequest productRequest) {
         if (productRepository.findByName(productRequest.getName()) != null) {
-            log.info("Product already exists");
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Product already exists");
         }
         productService.createProduct(productRequest);
@@ -38,7 +37,7 @@ public class ProductController {
     @ResponseStatus(HttpStatus.FOUND)
     public Product findProduct(@RequestBody ProductRequest productRequest) {
         if (productRepository.findByName(productRequest.getName()) == null) {
-            log.info("Product does not exist");
+            //log.info("Product does not exist");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product does not exist");
         }
         return productRepository.findByName(productRequest.getName());
@@ -48,7 +47,7 @@ public class ProductController {
     @ResponseStatus(HttpStatus.FOUND)
     public List<Product> findAllProducts() {
         if (productRepository.findAll() == null) {
-            log.info("No products found");
+            //log.info("No products found");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No products found");
         }
         return productRepository.findAll();
